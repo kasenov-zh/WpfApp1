@@ -38,9 +38,30 @@
           </StackPanel>
         </Canvas>
       </TabItem>
+      
       <TabItem Header="Tab 2">
+        <ListView x:Name="lvFiles">
+          <ListViewItem Content="Item 1"/>
+          <ListViewItem Content="Item 2"/>
+          <ListViewItem Content="Item 3"/>
+        </ListView>
       </TabItem>
+      
       <TabItem Header="Tab 3">
+        <TreeView x:Name="tvFolders">
+          <TreeViewItem Header="Item 1"
+                        IsExpanded="True">
+            <TreeViewItem Header="Item 1-1"/>
+            <TreeViewItem Header="Item 1-2"/>
+            <TreeViewItem Header="Item 1-3">
+              <Button Content="Button 1-4"/>
+            </TreeViewItem>
+          </TreeViewItem>
+          <TreeViewItem Header="Item 2">
+            <TreeViewItem Header="Item 2-1"/>
+            <TreeViewItem Header="Item 3-1"/>
+          </TreeViewItem>
+        </TreeView>
       </TabItem>
       
     </TabControl>

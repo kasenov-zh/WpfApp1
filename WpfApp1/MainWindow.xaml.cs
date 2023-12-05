@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -14,6 +15,9 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 //using System.Threading;
 using System.Windows.Threading;
+using System.IO;
+
+
 
 /*
  * This new modify file version
@@ -44,20 +48,26 @@ namespace WpfApp1
       progBar.Value += 1;
       if(progBar.Value < progBar.Maximum)
       {
-        timer.Start();
+        timer.Start(); // timer - continue
+      }
+      else
+      {
+        isStartTimer = false; // timer - stop
       }
     }
+    private bool isStartTimer = false;
     private void Button_Start_Click(object sender, RoutedEventArgs e)
     {
       progBar.Value = 0;
       progBar.Minimum = 0;
       progBar.Maximum = 113;
       timer.Start();
+      isStartTimer = true; // timer - user start
     }
-
     private void Button_Stop_Click(object sender, RoutedEventArgs e)
     {
       timer.Stop();
+      isStartTimer = false; // timer - user stop
     }
 
     private void progBar_ValueChanged(object sender,
@@ -79,7 +89,37 @@ namespace WpfApp1
       object sender, SelectionChangedEventArgs e)
     {
       TabControl tabControl = sender as TabControl;
-      //tabControl.Items.sel
+      if (tabControl.SelectedIndex == 0)
+      {
+        //if (timer.IsEnabled == false)
+        if(isStartTimer == true && timer.IsEnabled == false)
+        {
+          timer.Start(); // timer - continue
+        }
+      }
+      else
+      {
+        timer.Stop(); // timer - pause
+      }
+      //
+      switch(tabControl.SelectedIndex)
+      {
+        case 1: // lvFiles
+          UpdateFileList(); 
+          break;
+        case 2: // tvFolders
+          UpdateFolders();
+          break;
+      }
+    } // void TabControl_SelectionChanged()
+
+    private void UpdateFileList()
+    {
+      string path = "C://";
+      lvFiles.Items.Clear();
+
+      //string []arr_files = Directory.GetFiles(path);
+      //var en_files = Directory.EnumerateFiles(path);
 
       foreach ( var file in Directory.EnumerateFiles(path))
       {
@@ -104,6 +144,10 @@ namespace WpfApp1
             item.Items.Add(temp[0]);
           }
           tvFolders.Items.Add(item);
+        }
+        catch { }
+      }
     }
-  }
-}
+
+  } // class MainWindow
+} // namespace WpfApp1
