@@ -81,6 +81,29 @@ namespace WpfApp1
       TabControl tabControl = sender as TabControl;
       //tabControl.Items.sel
 
+      foreach ( var file in Directory.EnumerateFiles(path))
+      {
+        int i = lvFiles.Items.Add(new ListViewItem());
+        (lvFiles.Items[i] as ListViewItem).Content = file;
+      }
+    }
+    private void UpdateFolders()
+    {
+      string path = "C://";
+      string [] dirs = Directory.GetDirectories(path);
+      tvFolders.Items.Clear();
+      foreach ( string dir in dirs )
+      {
+        try
+        {
+          TreeViewItem item = new TreeViewItem();
+          item.Header = dir;
+          string[] temp = Directory.GetDirectories(dir);
+          if (temp.Length > 0)
+          {
+            item.Items.Add(temp[0]);
+          }
+          tvFolders.Items.Add(item);
     }
   }
 }
