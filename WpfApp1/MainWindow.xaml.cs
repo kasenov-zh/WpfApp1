@@ -15,6 +15,11 @@ using System.Windows.Shapes;
 //using System.Threading;
 using System.Windows.Threading;
 
+/*
+ * This new modify file version
+ */
+
+
 namespace WpfApp1
 {
   /// <summary>
